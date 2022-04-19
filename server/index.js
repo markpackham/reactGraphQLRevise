@@ -3,7 +3,7 @@ const app = express();
 const PORT = 6969;
 const cors = require("cors");
 const userData = require("./MOCK_DATA.json");
-const graphql = require("graphql");
+const graphql, {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString} = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
 
 const RootQuery = "query";
