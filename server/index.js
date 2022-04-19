@@ -3,7 +3,7 @@ const app = express();
 const PORT = 6969;
 const cors = require("cors");
 const userData = require("./MOCK_DATA.json");
-const graphql, {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString} = require("graphql");
+const graphql, {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList} = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
 const UserType = new GraphQLObjectType({
   name: "User",
@@ -19,7 +19,13 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    
+    getAllUsers: {
+      type: new GraphQLList(UserType),
+      args: { id: {type: GraphQLInt} },
+      resolve(parent, args){
+        return userData
+      }
+    }
   }
 });
 const Mutation = "mutation";
