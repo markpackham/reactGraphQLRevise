@@ -3,47 +3,66 @@ const app = express();
 const PORT = 6969;
 const cors = require("cors");
 const userData = require("./MOCK_DATA.json");
-const graphql, {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList} = require("graphql");
+const graphql = require("graphql");
+const {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLList,
+} = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
 const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
-    id: { type: GraphQLInt},
-    firstName: { type: GraphQLString},
-    lastName: { type: GraphQLString},
-    email: { type: GraphQLString},
-    password: { type: GraphQLString},
-  })
-})
+    id: { type: GraphQLInt },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  }),
+});
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
     getAllUsers: {
       type: new GraphQLList(UserType),
-      args: { id: {type: GraphQLInt} },
-      resolve(parent, args){
-        return userData
-      }
-    }
-  }
+      args: { id: { type: GraphQLInt } },
+      resolve(parent, args) {
+        return userData;
+      },
+    },
+  },
 });
+
+// when creating a user the id is the length of the array + 1
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     createUser: {
       type: UserType,
       args: {
-        firstName: { type: GraphQLString},
-        lastName: { type: GraphQLString},
-        email: { type: GraphQLString},
-        password: { type: GraphQLString},
-      }
-    }
-  }
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        userData.push({
+          id: userData.length + 1,
+          firstName: args.firstName,
+          lastName: args.lastName,
+          email: args.email,
+          password: args.password,
+        });
+        return args;
+      },
+    },
+  },
 });
 
-const schama = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
+const schema = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
 
 app.use(cors());
 
