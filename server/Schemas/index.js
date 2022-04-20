@@ -1,3 +1,14 @@
+const graphql = require("graphql");
+const {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLList,
+} = graphql;
+const userData = require("../MOCK_DATA.json");
+const UserType = require("./TypeDefs/UserType");
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
@@ -11,7 +22,6 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-// when creating a user the id is the length of the array + 1
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
@@ -37,4 +47,4 @@ const Mutation = new GraphQLObjectType({
   },
 });
 
-const schema = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
+module.exports = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
