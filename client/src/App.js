@@ -9,11 +9,6 @@ import {
 import { onError } from "@apollo/client/link/error";
 import GetUsers from "./components/GetUsers";
 
-const link = from([
-  errorLink,
-  new HttpLink({ uri: "http://localhost:6969/graphql" }),
-]);
-
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
     graphqlErrors.map(({ message, location, path }) => {
@@ -21,6 +16,11 @@ const errorLink = onError(({ graphqlErrors, networkError }) => {
     });
   }
 });
+
+const link = from([
+  errorLink,
+  new HttpLink({ uri: "http://localhost:6969/graphql" }),
+]);
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
