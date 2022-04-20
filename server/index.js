@@ -28,7 +28,20 @@ const RootQuery = new GraphQLObjectType({
     }
   }
 });
-const Mutation = "mutation";
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createUser: {
+      type: UserType,
+      args: {
+        firstName: { type: GraphQLString},
+        lastName: { type: GraphQLString},
+        email: { type: GraphQLString},
+        password: { type: GraphQLString},
+      }
+    }
+  }
+});
 
 const schama = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
 
