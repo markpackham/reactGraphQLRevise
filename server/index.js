@@ -5,7 +5,7 @@ const PORT = 6969;
 const cors = require("cors");
 const userData = require("./MOCK_DATA.json");
 const { graphqlHTTP } = require("express-graphql");
-
+const schema = require("./Schemas/index");
 app.use(cors());
 
 app.use(
