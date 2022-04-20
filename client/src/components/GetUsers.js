@@ -12,13 +12,7 @@ function GetUsers() {
     }
   }, [data]);
 
-  return (
-    <div>
-      {users.map((val) => {
-        return <h1>{val.firstName}</h1>;
-      })}
-    </div>
-  );
+  return <div></div>;
 }
 
 export default GetUsers;
