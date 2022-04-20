@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+// we want to visit http://localhost:6969/graphql
 const PORT = 6969;
 const cors = require("cors");
 const userData = require("./MOCK_DATA.json");
