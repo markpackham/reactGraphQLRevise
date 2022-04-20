@@ -8,7 +8,7 @@ function GetUsers() {
 
   useEffect(() => {
     if (data) {
-      setUsers(data.getAllUsers[0]);
+      setUsers(data.getAllUsers);
     }
   }, [data]);
 
