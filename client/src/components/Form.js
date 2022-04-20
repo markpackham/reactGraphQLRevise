@@ -22,10 +22,14 @@ function Form() {
 
     if (error) {
       console.log(error);
+    } else {
+      alert(`${firstName} created successfully`);
     }
   };
   return (
     <div>
+      <p>Results shown at http://localhost:6969/graphql</p>
+      <p>Run the query getAllUsers in GraphiQL to see</p>
       <input
         type="text"
         placeholder="First Name"
